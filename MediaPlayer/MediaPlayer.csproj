@@ -8,15 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="forward.png" />
     <None Remove="pause.png" />
     <None Remove="play.png" />
     <None Remove="rewind.png" />
+    <None Remove="shuffle.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="forward.png" />
     <Resource Include="pause.png" />
     <Resource Include="play.png" />
     <Resource Include="rewind.png" />
+    <Resource Include="shuffle.png" />
   </ItemGroup>
 
   <ItemGroup>

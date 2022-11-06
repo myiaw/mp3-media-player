@@ -65,7 +65,7 @@ namespace MediaPlayer01
             this.viewModel.Playlist.Remove(selected);
 
         }
-        void ClickListViewItem(object sender, MouseEventArgs e) => MessageBox.Show("Artist: " + this.viewModel.SelectedSong.Artist + "\n" + "Song title: " + this.viewModel.SelectedSong.Title + "\n");
+        void ClickListViewItem(object sender, MouseEventArgs e) => MessageBox.Show("Artist: " + this.viewModel.SelectedSong.Artist + "\n" + "Song title: " + this.viewModel.SelectedSong.Title + "\nGenre: " + this.viewModel.SelectedSong.Genre + "\nRelease Year: " + this.viewModel.SelectedSong.ReleaseYear.ToString() + "\nCover Picture: "+ this.viewModel.SelectedSong.CoverPicture.ToString() + "\n") ;
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

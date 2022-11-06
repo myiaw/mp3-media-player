@@ -70,8 +70,12 @@
                 <Button Name="pause_btn" Width="48px" Margin="4" Click="Button_Click_Pause">
                     <Image Source="/pause.png"></Image>
                 </Button>
-                <Button Width="48px" Margin="4"/>
-                <Button Width="48px" Margin="4"/>
+                <Button Name="forward_btn" Width="48px" Margin="4">
+                    <Image Source="/forward.png"></Image>
+                </Button>
+                <Button Name="shuffle_btn" Width="48px" Margin="4">
+                    <Image Source="/shuffle.png"></Image>
+                </Button>
 
 
             </StackPanel>
