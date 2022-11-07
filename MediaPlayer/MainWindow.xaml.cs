@@ -45,7 +45,7 @@ namespace MediaPlayer01
 
         private void MenuItemExit_Click(object sender, System.EventArgs e) => Application.Current.Shutdown();
 
-        private void MenuItemAdd_Click(object sender, System.EventArgs e) => this.viewModel.Playlist.Add(new Song("addedTitle", "addedArtist", "addedGenre", 2001, 1));
+        private void MenuItemAdd_Click(object sender, System.EventArgs e) => this.viewModel.Playlist.Add(new Song("addedTitle", "addedArtist", "addedGenre", "/Path", 1, 2001));
 
         private void MenuItemRemove_Click(object sender, System.EventArgs e)
         {
@@ -65,12 +65,9 @@ namespace MediaPlayer01
             this.viewModel.Playlist.Remove(selected);
 
         }
-        void ClickListViewItem(object sender, MouseEventArgs e) => MessageBox.Show("Artist: " + this.viewModel.SelectedSong.Artist + "\n" + "Song title: " + this.viewModel.SelectedSong.Title + "\nGenre: " + this.viewModel.SelectedSong.Genre + "\nRelease Year: " + this.viewModel.SelectedSong.ReleaseYear.ToString() + "\nCover Picture: "+ this.viewModel.SelectedSong.CoverPicture.ToString() + "\n") ;
+        void ClickListViewItem(object sender, MouseEventArgs e) => MessageBox.Show("Artist: " + this.viewModel.SelectedSong.Artist + "\n" + "Song title: " + this.viewModel.SelectedSong.Title + "\nGenre: " + this.viewModel.SelectedSong.Genre + "\nPath: " + this.viewModel.SelectedSong.Path + "\nCover Picture: "+ this.viewModel.SelectedSong.CoverPicture.ToString() + "\n" + "Release Year: "+ this.viewModel.SelectedSong.ReleaseYear.ToString() + "\n") ;
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        
 
         private void Button_Click_Play(object sender, RoutedEventArgs e)
         {

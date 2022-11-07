@@ -11,6 +11,12 @@
     <None Remove="forward.png" />
     <None Remove="pause.png" />
     <None Remove="play.png" />
+    <None Remove="Resources\Icons\forward.png" />
+    <None Remove="Resources\Icons\pause.png" />
+    <None Remove="Resources\Icons\play.png" />
+    <None Remove="Resources\Icons\rewind.png" />
+    <None Remove="Resources\Icons\shuffle.png" />
+    <None Remove="Resources\Media\example.avi" />
     <None Remove="rewind.png" />
     <None Remove="shuffle.png" />
   </ItemGroup>
@@ -19,6 +25,12 @@
     <Resource Include="forward.png" />
     <Resource Include="pause.png" />
     <Resource Include="play.png" />
+    <Resource Include="Resources\Icons\forward.png" />
+    <Resource Include="Resources\Icons\pause.png" />
+    <Resource Include="Resources\Icons\play.png" />
+    <Resource Include="Resources\Icons\rewind.png" />
+    <Resource Include="Resources\Icons\shuffle.png" />
+    <Resource Include="Resources\Media\example.avi" />
     <Resource Include="rewind.png" />
     <Resource Include="shuffle.png" />
   </ItemGroup>

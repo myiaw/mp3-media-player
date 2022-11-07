@@ -36,13 +36,14 @@
             <TextBlock Grid.Row="0" FontSize="20" Margin="5 15 0 0">CURRENT PLAYLIST</TextBlock>
             <!--PLAYLIST COLUMNS-->
             <Grid Grid.Row="1">
-                <DataGrid ItemsSource="{Binding Playlist}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSong}" MouseDoubleClick="ClickListViewItem" SelectionChanged="DataGrid_SelectionChanged">
+                <DataGrid ItemsSource="{Binding Playlist}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSong}" MouseDoubleClick="ClickListViewItem">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Artist" Binding="{Binding Artist}" Width="*" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="*" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Release Year" Binding="{Binding ReleaseYear}" Width="*" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Cover Picture" Binding="{Binding CoverPicture}" Width="*" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Release Year" Binding="{Binding ReleaseYear}" Width="*" ></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

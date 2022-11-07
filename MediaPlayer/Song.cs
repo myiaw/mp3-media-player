@@ -14,6 +14,7 @@ namespace MediaPlayer01
         private String title;
         private String artist;
         private String genre;
+        private string path;
         private int releaseYear;
         private int coverPicture;   
 
@@ -44,13 +45,13 @@ namespace MediaPlayer01
                 NotifyPropertyChanged("Genre");
             }
         }
-        public int ReleaseYear
+        public string Path
         {
-            get { return releaseYear; }
+            get { return path; }
             set
             {
-                releaseYear = value;
-                NotifyPropertyChanged("ReleaseYear");
+                path = value;
+                NotifyPropertyChanged("Path");
             }
         }
         public int CoverPicture
@@ -62,13 +63,21 @@ namespace MediaPlayer01
                 NotifyPropertyChanged("CoverPicture");
             }
         }
-        public Song(string Title, string Artist, string Genre, int ReleaseYear, int CoverPicture)
+        public int ReleaseYear {
+            get { return releaseYear; }
+            set {
+                releaseYear = value;
+                NotifyPropertyChanged("ReleaseYear");
+            }
+        }
+        public Song(string Title, string Artist, string Genre, string Path, int CoverPicture, int ReleaseYear)
         {
             this.Title = Title;
             this.Artist = Artist;
             this.Genre = Genre;
-            this.ReleaseYear = ReleaseYear;
+            this.Path = Path;
             this.CoverPicture = CoverPicture;
+            this.ReleaseYear = ReleaseYear;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
