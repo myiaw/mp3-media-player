@@ -1,86 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation;
-using System.ComponentModel;
-using System.Xml.Linq;
+﻿using System.ComponentModel;
+using System.IO;
+using System.Net.Mime;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
-namespace MediaPlayer01
-{
-    internal class Song : INotifyPropertyChanged
-    {
-        private String title;
-        private String artist;
-        private String genre;
-        private int releaseYear;
-        private int coverPicture;   
+namespace MediaPlayer{
+    internal class Song : INotifyPropertyChanged{
+        private string? _title;
+        private string? _artist;
+        private string? _genre;
+        private string? _path;
+        private ImageSource? _image;
+        private int _releaseYear;
 
-        public string Title
+        public string? Title
         {
-            get { return title; }
+            get => _title;
             set {
-                title = value;
-                NotifyPropertyChanged("Title"); 
+                _title = value;
+                NotifyPropertyChanged("Title");
             }
         }
-        public string Artist
+
+        public ImageSource? Image
         {
-            get { return artist; }
-            set
-            {
-                artist = value;
+            get => _image;
+            set {
+                _image = value;
+                NotifyPropertyChanged("Image");
+            }
+        }
+
+        public string? Artist
+        {
+            get => _artist;
+            set {
+                _artist = value;
                 NotifyPropertyChanged("Artist");
             }
         }
 
-        public string Genre
+        public string? Genre
         {
-            get { return genre; }
-            set
-            {
-                genre = value;
+            get => _genre;
+            set {
+                _genre = value;
                 NotifyPropertyChanged("Genre");
             }
         }
+
         public int ReleaseYear
         {
-            get { return releaseYear; }
-            set
-            {
-                releaseYear = value;
+            get => _releaseYear;
+            set {
+                _releaseYear = value;
                 NotifyPropertyChanged("ReleaseYear");
             }
         }
-        public int CoverPicture
+
+
+        public string? Path
         {
-            get { return coverPicture; }
-            set
-            {
-                coverPicture = value;
-                NotifyPropertyChanged("CoverPicture");
+            get => _path;
+            set {
+                _path = value;
+                NotifyPropertyChanged("Path");
             }
         }
-        public Song(string Title, string Artist, string Genre, int ReleaseYear, int CoverPicture)
-        {
-            this.Title = Title;
-            this.Artist = Artist;
-            this.Genre = Genre;
-            this.ReleaseYear = ReleaseYear;
-            this.CoverPicture = CoverPicture;
+
+        public Song(string? title, string? artist, string? genre, int releaseYear, ImageSource? image, string? path) {
+            Title = title;
+            Artist = artist;
+            Genre = genre;
+            ReleaseYear = releaseYear;
+            Image = image;
+            Path = path;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public void NotifyPropertyChanged(string attribute)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(attribute));
-            }
+
+        private void NotifyPropertyChanged(string attribute) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(attribute));
         }
 
+        public static ImageSource LoadImage(string fileName) {
+            var image = new BitmapImage();
 
+            using var stream = new FileStream(fileName, FileMode.Open);
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = stream;
+            image.EndInit();
 
+            return image;
+        }
     }
 }

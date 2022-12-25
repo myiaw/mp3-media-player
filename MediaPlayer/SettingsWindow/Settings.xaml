@@ -1,0 +1,45 @@
+﻿<Window x:Class="MediaPlayer.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   
+
+        ResizeMode="CanResize"
+        Title="Settings" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <TabControl>
+                <TabItem Header="General">
+
+                </TabItem>
+                <TabItem Header="Genre">
+                    <StackPanel Orientation="Vertical">
+                        <Button Margin="20 10 0 0" x:Name="RemoveGenreBtn" Width="auto" HorizontalAlignment="Left" Click="removeGenre_btn_Click">Remove Genre</Button>
+                        <Grid>
+                            <Button Margin="20 10 0 0" x:Name="AddGenreBtn" Width="auto" HorizontalAlignment="Left" Click="addGenre_btn_Click">Add Genre</Button>
+                            <TextBox x:Name="GenreBox" Width="150" Height="25" HorizontalAlignment="Right" Margin="0 0 25 0"></TextBox>
+                        </Grid>
+
+                        <ListView x:Name="MGenres" Height="300" Margin="20 10 20 0" MouseDoubleClick="mGenres_MouseDoubleClick">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Label Content="{Binding}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Saved">
+                    <StackPanel Orientation="Vertical">
+                        <Label  Margin="20 10 0 0">Label 1</Label>
+                        <Label  Margin="20 10 0 0">Label 2</Label>
+                        <CheckBox Margin="20 10 0 0">Checkbox</CheckBox>
+                        <TextBox Margin="20 10 0 0">Text Box</TextBox>
+                    </StackPanel>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
