@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Net.Mime;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
+using System.Xml.Serialization;
+using MediaPlayer.SettingsWindow;
 using Microsoft.Win32;
 
 namespace MediaPlayer{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window{
+    /* The MainWindow class is the main window of the application */
+    public partial class MainWindow{
         public MainWindow() {
             InitializeComponent();
             MPlaylist.ItemsSource = Data.Songs;
         }
 
-
+        /// When the user clicks the Exit menu item, the application shuts down
         private void MenuItemExit_Click(object sender, EventArgs e) => Application.Current.Shutdown();
 
+        /// It opens a dialog box that allows the user to select multiple files, and then adds them to the list of songs
         private void MenuItemAdd_Click(object sender, EventArgs e) {
             var dlg = new OpenFileDialog {
                 Multiselect = true,
@@ -34,11 +33,13 @@ namespace MediaPlayer{
             }
         }
 
+        /// When the user clicks on the "Settings" menu item, a new window is created and displayed
         private void MenuItemSettings_Click(object sender, EventArgs e) {
             var settingsWin = new Settings();
             settingsWin.Show();
         }
 
+        /// If the selected item is a song, remove it from the list of songs
         private void MenuItemRemove_Click(object sender, EventArgs e) {
             if (MPlaylist.SelectedItem is Song song) {
                 Data.Songs.Remove(song);
@@ -48,11 +49,11 @@ namespace MediaPlayer{
             }
         }
 
-        void ClickListViewItem(object sender, MouseEventArgs e) {
+        /// It opens a new window, and fills it with the data of the selected song
+        private void ClickListViewItem(object sender, MouseEventArgs e) {
             if (MPlaylist.SelectedItem is not Song song) return;
             var editWin = new EditSong();
             Data.SelectedSong = song;
-            EditButton.IsEnabled = true;
             editWin.Title = Data.SelectedSong.Title;
             editWin.YearBox.Text = song.ReleaseYear.ToString();
             editWin.ArtistBox.Text = song.Artist;
@@ -74,35 +75,39 @@ namespace MediaPlayer{
         }
 
 
+        /// When the user selects a playlist, the edit button is enabled
         private void mPlaylist_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-        }
-
-        private void Button_Click_Image(object sender, MouseButtonEventArgs e) {
-            var dlg = new OpenFileDialog {
-                Multiselect = false,
-                FilterIndex = 1,
-                Filter =
-                    "All Images Files (*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif)|*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif" +
-                    "|PNG Portable Network Graphics (*.png)|*.png" +
-                    "|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
-                    "|BMP Windows Bitmap (*.bmp)|*.bmp" +
-                    "|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
-                    "|GIF Graphics Interchange Format (*.gif)|*.gif"
-            };
-            var result = dlg.ShowDialog();
-            if (result != true) return;
-            if (MPlaylist.SelectedItem is Song song) {
-                song.Image = Song.LoadImage(dlg.FileName);
-            }
-            // TODO: FIX ONCLICK IMAGE CHANGE FOR SONG
-        }
-
-        private void Button_Enable_Edit(object sender, MouseButtonEventArgs e) {
             EditButton.IsEnabled = true;
         }
 
         private void MenuItemEdit_Click(object sender, RoutedEventArgs e) {
-            ClickListViewItem(sender, null);
+            ClickListViewItem(sender, null!);
+        }
+
+        private void MenuItemImport_Click(object sender, RoutedEventArgs e) {
+            var dlg = new OpenFileDialog {
+                Multiselect = true,
+                Filter = "XML Files (*.xml)|*.xml"
+            };
+            var result = dlg.ShowDialog();
+            if (result != true) return;
+            var serializer = new XmlSerializer(typeof(Song));
+            using var writer = new StreamWriter(dlg.FileName);
+            serializer.Serialize(writer, Data.Songs);
+        }
+
+        private void MenuItemExport_Click(object sender, RoutedEventArgs e) {
+            Stream stream ;
+            var dlg = new SaveFileDialog {
+                Filter = "XML Files (*.xml)|*.xml",
+            };
+            var result = dlg.ShowDialog();
+            if(result != true) return;
+            if((stream = dlg.OpenFile()) != null)
+            {
+                // Code to write the stream goes here.
+                stream.Close();
+            }
         }
     }
 }

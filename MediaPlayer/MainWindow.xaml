@@ -1,8 +1,9 @@
-﻿<Window DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        x:Class="MediaPlayer.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="450" Width="800" MinHeight="200" MinWidth="400">
+﻿<Window
+    x:Class="MediaPlayer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mediaPlayer="clr-namespace:MediaPlayer"
+    Title="MainWindow" Height="450" Width="800" MinHeight="200" MinWidth="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.75*" />
@@ -34,27 +35,8 @@
             <!--PLAYLIST COLUMNS-->
             <Grid Grid.Row="1">
                 <ListView Name="MPlaylist" Margin="10,0,25,0" MouseDoubleClick="ClickListViewItem"
-                          ScrollViewer.CanContentScroll="True" SelectionChanged="mPlaylist_SelectionChanged">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                                <Label PreviewMouseLeftButtonDown="Button_Enable_Edit" Content="{Binding Path=Title}"
-                                       VerticalContentAlignment="Center"
-                                       Margin="10 0 0 0" />
-                                <Label PreviewMouseLeftButtonDown="Button_Enable_Edit" Content="{Binding Path=Artist}"
-                                       VerticalContentAlignment="Center" />
-                                <Label PreviewMouseLeftButtonDown="Button_Enable_Edit" Content="{Binding Path=Genre}"
-                                       VerticalContentAlignment="Center" />
-                                <Label PreviewMouseLeftButtonDown="Button_Enable_Edit"
-                                       Content="{Binding Path=ReleaseYear}" VerticalContentAlignment="Center" />
-                                <Label PreviewMouseLeftButtonDown="Button_Enable_Edit" Content="{Binding Path=Path}"
-                                       VerticalContentAlignment="Center" />
-                                <Image PreviewMouseLeftButtonDown="Button_Click_Image"
-                                       Source="{Binding Path=Image}" RenderOptions.BitmapScalingMode="Fant"
-                                       Stretch="Fill" MaxWidth="100" MaxHeight="100" Margin="40 0 0 0" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                          ScrollViewer.CanContentScroll="True" SelectionChanged="mPlaylist_SelectionChanged"
+                          ItemTemplate="{StaticResource SongDataTemplate}">
                 </ListView>
             </Grid>
             <!--TEXT ABOVE PLAY WINDOW-->
@@ -92,9 +74,12 @@
 
         </Grid>
 
-        <DockPanel>
+        <DockPanel Grid.Column="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
+                    <MenuItem Click="MenuItemImport_Click" Header="Import"></MenuItem>
+                    <MenuItem Click="MenuItemExport_Click" Header="Export"></MenuItem>
+
                     <MenuItem Click="MenuItemExit_Click" Header="Exit"></MenuItem>
                 </MenuItem>
 
@@ -108,7 +93,7 @@
                 </MenuItem>
             </Menu>
 
-            <Grid Grid.Column="1">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>

@@ -1,9 +1,38 @@
 ﻿<Application x:Class="MediaPlayer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MediaPlayer"
+             xmlns:mediaPlayer1="clr-namespace:MediaPlayer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <!-- Template for each list view item. -->
+        <DataTemplate x:Key="SongDataTemplate" DataType="mediaPlayer1:Song">
+            <StackPanel Orientation="Horizontal" Height="64">
+                <!-- Image Property -->
+                <Ellipse Height="48" Width="48" VerticalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding Image}" />
+                    </Ellipse.Fill>
+                </Ellipse>
+                <!-- Image Property -->
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,0,12,0">
+                        <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Artist}" />
+                    </StackPanel>
+                    <Rectangle VerticalAlignment="Stretch" Width="1" Margin="5" Stroke="Black" />
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                Margin="12,0,12,0">
+                        <TextBlock Text="{Binding Genre}" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                        <TextBlock Text="{Binding ReleaseYear}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                Margin="12,0,0,0">
+                        <TextBlock Text="{Binding Path}" HorizontalAlignment="Right" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <!-- Template for each list view item. -->
     </Application.Resources>
 </Application>
