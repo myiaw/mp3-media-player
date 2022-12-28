@@ -3,8 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="Title" Height="330" Width="400">
+        Title="Title" Height="330" Width="400" WindowStyle="None"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        Background="#181735">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -14,29 +17,69 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Margin="18,10,-12,46" VerticalContentAlignment="Center" Content="Title:" Grid.RowSpan="2" />
-        <TextBox Grid.Row="0" x:Name="TitleBox" Width="200" Height="25" HorizontalAlignment="Left" Margin="145,20,0,5"
+        <Label FontSize="12" FontFamily="MediaPlayer/Resources/Fonts/#Dosis.ttf" Foreground="White"
+               VerticalAlignment="Center" Grid.Row="0" Margin="18,10,-12,46" VerticalContentAlignment="Center"
+               Content="Title:"
+               Grid.RowSpan="2" />
+        <TextBox Grid.Row="0" x:Name="TitleBox" Width="200" Height="30" HorizontalAlignment="Left" Margin="145,15,0,5"
                  SelectionOpacity="0.7" TextChanged="TitleBox_TextChanged">
         </TextBox>
-        <Label Grid.Row="1" Margin="18,10,-12,46" VerticalContentAlignment="Center" Content="Artist:" Grid.RowSpan="2" />
-        <TextBox Grid.Row="4" x:Name="PathBox" Width="200" Height="25" HorizontalAlignment="Left" Margin="145,22,0,3"
-                 TextChanged="PathBox_TextChanged">
+        <Label FontSize="12" Foreground="White" VerticalAlignment="Center"
+               FontFamily="MediaPlayer/Resources/Fonts/#Dosis.ttf" Grid.Row="1" Margin="18,10,-12,46"
+               VerticalContentAlignment="Center" Content="Artist:"
+               Grid.RowSpan="2" />
+        <TextBox Grid.Row="4" x:Name="PathBox" Width="200" Height="30" HorizontalAlignment="Left" Margin="145,22,0,3"
+                 TextChanged="PathBox_TextChanged" VerticalAlignment="Center">
         </TextBox>
-        <TextBox Grid.Row="3" x:Name="YearBox" Width="200" Height="25" HorizontalAlignment="Left" Margin="145,17,0,8"
-                 TextChanged="YearBox_TextChanged">
+        <TextBox Grid.Row="3" x:Name="YearBox" Width="200" Height="30" HorizontalAlignment="Left" Margin="145,17,0,8"
+                 TextChanged="YearBox_TextChanged" VerticalAlignment="Center">
         </TextBox>
-        <Label Grid.Row="3" Margin="18,10,0,46" VerticalContentAlignment="Center" Content="Release Year:"
+        <Label Grid.Row="3" Foreground="White" VerticalAlignment="Center" FontSize="12"
+               FontFamily="MediaPlayer/Resources/Fonts/#Dosis.ttf" Margin="18,10,0,46"
+               VerticalContentAlignment="Center" Content="Release Year:"
                Grid.RowSpan="2" HorizontalAlignment="Left" />
-        <Label Grid.Row="4" Margin="18,10,0,-8" VerticalContentAlignment="Center" Content="Path:"
+        <Label Grid.Row="4" Foreground="White" VerticalAlignment="Center"
+               FontFamily="MediaPlayer/Resources/Fonts/#Dosis.ttf" Margin="18,10,0,-8" FontSize="12"
+               VerticalContentAlignment="Center" Content="Path:"
                HorizontalAlignment="Left" />
-        <TextBox Grid.Row="1" x:Name="ArtistBox" Width="200" Height="35" HorizontalAlignment="Left"
-                 Margin="145,20,0,10" TextChanged="ArtistBox_TextChanged">
+        <TextBox Grid.Row="1" x:Name="ArtistBox" Width="200" Height="30" HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Margin="145,5,0,10" TextChanged="ArtistBox_TextChanged">
         </TextBox>
-        <ComboBox Grid.Row="2" Height="30" Margin="30 5 30  0" Name="GenreComboBox" IsReadOnly="true"
+        <ComboBox Grid.Row="2" Height="30" Name="GenreComboBox" VerticalAlignment="Center" HorizontalAlignment="Center"
+                  IsReadOnly="true"
                   SelectionChanged="GenreComboBoxSelectionChanged" Loaded="comboBox1_Loaded" Text="-- Select Genre --" />
-        <Label Grid.Row="5" Margin="18,5,0,5" VerticalContentAlignment="Center" Content="Image:"
+        <Label Grid.Row="2" Foreground="White" VerticalAlignment="Center"
+               FontFamily="MediaPlayer/Resources/Fonts/#Dosis.ttf" Margin="18,10,0,-8" FontSize="12"
+               VerticalContentAlignment="Center" Content="Genre:"
                HorizontalAlignment="Left" />
-        <Button Grid.Row="5" Margin="140 0 30  5" x:Name="SetImage" Content="Set Image" Width="200" Height="25"
-                Click="Image_Change" />
+        <Label Grid.Row="5" FontSize="12" FontFamily="MediaPlayer/Resources/Fonts/#Dosis.ttf" Foreground="White"
+               VerticalAlignment="Center" Margin="18,5,0,5" VerticalContentAlignment="Center" Content="Image:"
+               HorizontalAlignment="Left" />
+
+        <Button Grid.Row="5" x:Name="SetImage" Content="SET IMAGE" FontWeight="Medium" FontSize="14" Foreground="White"
+                Margin="140 0 30 5" Click="Image_Change">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextElement.FontFamily" Value="MediaPlayer/Resources/Fonts/#Dosis.ttf" />
+                    <Setter Property="Background" Value="#FE6584" />
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF4C70"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25" CornerRadius="12" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

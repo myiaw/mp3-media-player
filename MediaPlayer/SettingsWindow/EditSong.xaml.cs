@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Microsoft.Win32;
 
 namespace MediaPlayer.SettingsWindow{
@@ -73,6 +74,7 @@ namespace MediaPlayer.SettingsWindow{
             if (result != true) return;
             if (Data.SelectedSong is { } song) {
                 song.Image = Song.LoadImage(dlg.FileName);
+                
             }
         }
     }

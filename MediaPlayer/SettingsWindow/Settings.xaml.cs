@@ -15,14 +15,14 @@ public partial class Settings{
         GetSettings();
         PreviewKeyDown += HandleEsc;
     }
-    
+
     /// If the key pressed is the escape key, close the window
     private void HandleEsc(object sender, KeyEventArgs e) {
         if (e.Key == Key.Escape) {
             Close();
         }
     }
-    
+
     /// If the Genres property of the Settings object is null, then set it to a new StringCollection object
     /// Add all the items in the Genres property to the Genres ObservableCollection
     private static void GetSettings() {
@@ -31,11 +31,12 @@ public partial class Settings{
         if (Properties.Settings.Default.Genres == null) return;
         {
             foreach (var genre in Properties.Settings.Default.Genres) {
+                if (Genres.Contains(genre)) continue;
                 Genres.Add(genre);
             }
         }
     }
-    
+
     /// It saves the Genres list to the GenreCollection list in the Data class, then saves the GenreCollection list to the
     /// Genres property in the Properties.Settings.Default class
     public static void SaveGenre() {
@@ -48,7 +49,7 @@ public partial class Settings{
         Properties.Settings.Default.Save();
     }
 
-    
+
     /// If the selected item in the listbox is a string, then remove it from the listbox
     /// Else it prompts the user to select an item to remove.
     private void removeGenre_btn_Click(object sender, RoutedEventArgs e) {
@@ -61,7 +62,7 @@ public partial class Settings{
 
         SaveGenre();
     }
-    
+
     /// If the textbox is not empty, add the text to the list and clear the textbox.
     private void addGenre_btn_Click(object sender, RoutedEventArgs e) {
         if (GenreBox.Text.Length > 0) {
@@ -73,12 +74,15 @@ public partial class Settings{
             Genres.Add(GenreBox.Text);
             GenreBox.Clear();
         }
+        else {
+            MessageBox.Show("Please enter a genre.");
+            return;
+        }
 
         SaveGenre();
     }
 
     /// If the user double clicks on a genre in the list, the genre is set as the current value and opens EditGenreWindow
-    
     private void mGenres_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
         if (MGenres.SelectedItem is not string str) return;
         Value = str;

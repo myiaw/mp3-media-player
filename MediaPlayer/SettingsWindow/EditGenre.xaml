@@ -3,17 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="Edit"
-        Width="300" Height="125">
+        Width="300" Height="125" WindowStyle="None"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        Background="#181735">
     <!-- This is the code for the window that pops up when you click the edit button. It contains a label, a textbox and a button. The label is just a label, the textbox is where you type in the new genre and the button is the button you click to set the new genre. -->
     <Grid>
-        <Label Content="Change genre to:"></Label>
-        <TextBox x:Name="EditBox" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Margin="30">
-        </TextBox>
-        <Button IsDefault="True" Click="Button_ClickSet" Width="25" Height="20" Content="SET"
-                HorizontalAlignment="Right" Margin="0 0 20 0">
-        </Button>
+        <Label Content="Change genre to:" FontSize="12" Margin="10 10 0 0" VerticalAlignment="Top"
+               HorizontalAlignment="Left" FontWeight="Normal" Foreground="LightGray">
+        </Label>
+
+        <StackPanel Margin="5 5 0 0" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBox x:Name="EditBox" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Margin="10 5 15 10">
+            </TextBox>
+            <Button VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Click="Button_ClickSet" Content="OK" FontWeight="Medium" FontSize="14"
+                    Foreground="White" Margin="3 5 0 10">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily"
+                                Value="MediaPlayer/Resources/Fonts/#Dosis.ttf" />
+                        <Setter Property="Background" Value="#FE6584" />
+                        <Setter Property="Cursor" Value="Hand"></Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="50" Height="25" CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Window>

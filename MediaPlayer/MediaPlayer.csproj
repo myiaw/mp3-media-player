@@ -1,67 +1,115 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="pause.png" />
-    <None Remove="play.png" />
-    <None Remove="rewind.png" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="pause.png" />
+        <None Remove="play.png" />
+        <None Remove="rewind.png" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="pause.png" />
-    <Resource Include="play.png" />
-    <Resource Include="rewind.png" />
-  </ItemGroup>
+    <ItemGroup>
+        <Resource Include="pause.png" />
+        <Resource Include="play.png" />
+        <Resource Include="rewind.png" />
+        <None Remove="Resources\Images\shuttle.png" />
+        <Resource Include="Resources\Images\shuttle.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Resources\Media\images.png" />
+        <Resource Include="Resources\Media\images.png" />
+        <None Remove="Resources\Media\example.avi" />
+        <Resource Include="Resources\Media\example.avi">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Resources\Icons\forward.png" />
+        <None Remove="Resources\Icons\pause.png" />
+        <None Remove="Resources\Icons\play.png" />
+        <None Remove="Resources\Icons\rewind.png" />
+        <None Remove="Resources\Icons\shuffle.png" />
+        <None Remove="Resources\Icons\circle-pause-solid.png" />
+        <Resource Include="Resources\Icons\circle-pause-solid.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Resources\Icons\play-solid.png" />
+        <Resource Include="Resources\Icons\play-solid.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Resources\Icons\forward-solid.png" />
+        <Resource Include="Resources\Icons\forward-solid.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Resources\Icons\shuffle-solid.png" />
+        <Resource Include="Resources\Icons\shuffle-solid.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Resources\Fonts\Dosis.ttf" />
+        <Resource Include="Resources\Fonts\Dosis.ttf" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Properties\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Properties\Settings.Designer.cs">
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <None Remove="Resources\Icons\backward-solid.png" />
+        <Resource Include="Resources\Icons\backward-solid.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Settings\Settings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Settings\EditGenre.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Settings\EditSong.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
+    <ItemGroup>
+        <Page Update="Settings\Settings.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Settings\EditGenre.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Settings\EditSong.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazorise.Bootstrap" Version="1.1.5" />
+        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.1.5" />
+        <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Resources\Fonts" />
+        <Folder Include="Resources\Images" />
+    </ItemGroup>
 
 </Project>

@@ -10,6 +10,11 @@ public partial class EditGenre{
     /// If the value in the edit box is not already in the list of genres, then add it to the list and save the list
     private void Button_ClickSet(object sender, RoutedEventArgs e) {
         if (!Settings.Genres.Contains(Settings.Value)) return;
+        if (EditBox.Text == "") {
+            MessageBox.Show("Empty genre name is not allowed");
+            return;
+        }
+
         Settings.Genres[Settings.Genres.IndexOf(Settings.Value)] = EditBox.Text;
         Settings.SaveGenre();
         Close();
