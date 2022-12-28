@@ -3,175 +3,190 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    ui:WindowHelper.UseModernWindowStyle="True"
+    ui:WindowHelper.UseModernWindowStyle="False"
     Height="625" Width="900" WindowStyle="None"
-    ResizeMode="NoResize" Background="#181735">
-    
-    <!-- Definitions -->
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-        </Grid.RowDefinitions>
+    ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/UITemplatesResourceDictionary.xaml" />
+                <ResourceDictionary Source="Resources/AnimationResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        
-      
-        <!--#TODO GRID SPLITTERS?-->
-        
-        <Grid Background="#0F0F2D" Grid.ColumnSpan="2">
+
+    <Border Background="#181735" CornerRadius="30" MouseDown="Menu_OnPreviewMouseDown" ClipToBounds="False">
+
+
+        <!-- Definitions -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
 
-            <!--
+            <!--#TODO GRID SPLITTERS?-->
+
+            <Grid Background="#0F0F2D" Grid.ColumnSpan="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+
+                </Grid.ColumnDefinitions>
+
+
+                <!--
             This is the menu bar for the application. It is a menu bar that has three options: File, List, and Tools.
             -->
-            <Menu DockPanel.Dock="Top" Background="#0F0F2D" Foreground="White" VerticalAlignment="Center"
-                  FontStyle="Normal" FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf" FontSize="12">
-                <MenuItem Header="File">
-                    <MenuItem Click="MenuItemExit_Click" Header="Exit"></MenuItem>
-                    <MenuItem Click="MenuItemImport_Click" Header="Import"></MenuItem>
-                    <MenuItem Click="MenuItemExport_Click" Header="Export"></MenuItem>
+                <Menu DockPanel.Dock="Top" Background="#0F0F2D" Foreground="White"
+                      VerticalAlignment="Center"
+                      FontStyle="Normal" FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf" FontSize="12">
+                    <MenuItem Header="File">
+                        <MenuItem Click="MenuItemExit_Click" Header="Exit"></MenuItem>
+                        <MenuItem Click="MenuItemImport_Click" Header="Import"></MenuItem>
+                        <MenuItem Click="MenuItemExport_Click" Header="Export"></MenuItem>
 
-                </MenuItem>
+                    </MenuItem>
 
-                <MenuItem Header="List">
-                    <MenuItem Click="MenuItemAdd_Click" Header="Add"></MenuItem>
-                    <MenuItem Click="MenuItemRemove_Click" Header="Remove"></MenuItem>
-                    <MenuItem Click="MenuItemEdit_Click" x:Name="EditButton" Header="Edit" IsEnabled="False"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Tools">
-                    <MenuItem Click="MenuItemSettings_Click" Header="Settings"></MenuItem>
-                </MenuItem>
-            </Menu>
+                    <MenuItem Header="List">
+                        <MenuItem Click="MenuItemAdd_Click" Header="Add"></MenuItem>
+                        <MenuItem Click="MenuItemRemove_Click" Header="Remove"></MenuItem>
+                        <MenuItem Click="MenuItemEdit_Click" x:Name="EditButton" Header="Edit" IsEnabled="False"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Tools">
+                        <MenuItem Click="MenuItemSettings_Click" Header="Settings"></MenuItem>
+                    </MenuItem>
+                </Menu>
 
-        </Grid>
+            </Grid>
 
-        <!--
+            <!--
         This is the code for the top left corner of the application. It is the logo and the title of the application.
         -->
-        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="60">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin=" 0 0 0 20">
-                    <Image Width="50" Height="50" Source="Resources/Images/shuttle.png"
-                           RenderOptions.BitmapScalingMode="Fant">
-                    </Image>
-                    <TextBlock FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf" FontWeight="Medium" Text="M1 Player"
-                               Foreground="White" VerticalAlignment="Center" FontSize="20" Margin="10 0 0 0">
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
-                    <TextBlock Text="Currently Playing: " Foreground="White" FontWeight="Bold" FontSize="25"
+            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="60">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin=" 0 0 0 20">
+                        <Image Width="50" Height="50" Source="Resources/Images/shuttle.png"
+                               RenderOptions.BitmapScalingMode="Fant">
+                        </Image>
+                        <TextBlock FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf" FontWeight="Medium"
+                                   Text="M1 Player"
+                                   Foreground="White" VerticalAlignment="Center" FontSize="20" Margin="10 0 0 0">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                        <TextBlock Text="Currently Playing: " Foreground="White" FontWeight="Bold" FontSize="25"
+                                   FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf">
+                        </TextBlock>
+                        <Label x:Name="CurrentTitle" Content=" " Foreground="LightGray" FontWeight="Medium"
+                               FontSize="25"
                                FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf">
-                    </TextBlock>
-                    <Label x:Name="CurrentTitle" Content=" " Foreground="LightGray" FontWeight="Medium" FontSize="25"
-                           FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf">
-                    </Label>
+                        </Label>
+
+
+                    </StackPanel>
+
+                    <!-- Hidden image that shows whenever we start playing a song. -->
+                    <Ellipse Height="120" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left"
+                             Margin="105 20 20 10 ">
+                        <Ellipse.Fill>
+                            <ImageBrush x:Name="ShownImage" ImageSource="{Binding Image}" />
+                        </Ellipse.Fill>
+                    </Ellipse>
 
 
                 </StackPanel>
 
-                <!-- Hidden image that shows whenever we start playing a song. -->
-                <Ellipse Height="120" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left"
-                         Margin="105 20 20 10 ">
-                    <Ellipse.Fill>
-                        <ImageBrush x:Name="ShownImage" ImageSource="{Binding Image}" />
-                    </Ellipse.Fill>
-                </Ellipse>
+                <StackPanel Orientation="Vertical">
 
+                    <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
 
-            </StackPanel>
+                        <!-- Media Player (Invisible because it's an MP3 Player) - set width and height to turn it into a video player. -->
 
-            <StackPanel Orientation="Vertical">
-                
-                <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
-                    
-                    <!-- Media Player (Invisible because it's an MP3 Player) - set width and height to turn it into a video player. -->
-                    
-                    <MediaElement MediaFailed="mediaElement_MediaFailed" MediaEnded="mediaElement_MediaEnded"
-                                  x:Name="MediaElement" MediaOpened="MediaElement_OnMediaOpened"
-                                  LoadedBehavior="Manual" Volume="0.2">
-                    </MediaElement>
-                    <!--
+                        <MediaElement MediaFailed="mediaElement_MediaFailed" MediaEnded="mediaElement_MediaEnded"
+                                      x:Name="MediaElement" MediaOpened="MediaElement_OnMediaOpened"
+                                      LoadedBehavior="Manual" Volume="0.2">
+                        </MediaElement>
+                        <!--
                     This is the code for the buttons and the slider that controls the media player volume.
                     -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="40,10,0,10">
-                        <Button Width="48" Height="48" x:Name="BtnShuffle" Click="BtnShuffle_OnClick"
-                                Margin="0 25 10 0">
-                            <Image x:Name="ImgShuffle" Source="Resources/Icons/shuffle-solid.png"
-                                   RenderOptions.BitmapScalingMode="Fant" />
-                        </Button>
-                        <Button Width="48" Height="48" x:Name="BtnBackward" Click="btnBackward_OnClick"
-                                Margin="0 25 10 0">
-                            <Image x:Name="ImgBackward" Source="Resources/Icons/backward-solid.png"
-                                   RenderOptions.BitmapScalingMode="Fant" />
-                        </Button>
-                        <Button Width="48" Height="48" x:Name="BtnPausePlay" Click="btnPausePlay_Click"
-                                Margin="0 25 10 0">
-                            <Image x:Name="ImgPausePlay" Source="Resources/Icons/play-solid.png"
-                                   RenderOptions.BitmapScalingMode="Fant" />
-                        </Button>
-                        <Button Width="48" Height="48" x:Name="BtnForward" Click="btnForward_OnClick"
-                                Margin="0 25 5 0">
-                            <Image x:Name="ImgForward" Source="Resources/Icons/forward-solid.png"
-                                   RenderOptions.BitmapScalingMode="Fant" />
-                        </Button>
-                        <Slider x:Name="VolumeSlider" Width="100"
-                                Value="{Binding ElementName=MediaElement, Path=Volume}" Maximum="1" Minimum="0"
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical"
-                                Height="60" MaxWidth="30" Margin="15 0 0 -10" TickFrequency="0.1" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="40,10,0,10">
+                            <Button Width="48" Height="48" x:Name="BtnShuffle" Click="BtnShuffle_OnClick"
+                                    Margin="0 25 10 0" Background="Transparent"
+                                    Style="{StaticResource ButtonStyle}" BorderThickness="0">
+                                <Image x:Name="ImgShuffle" Source="Resources/Icons/shuffle-solid.png"
+                                       RenderOptions.BitmapScalingMode="Fant" />
+                            </Button>
+
+
+                            <Button Width="48" Height="48" x:Name="BtnBackward" Click="btnBackward_OnClick "
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Margin="0 25 10 0" Style="{StaticResource ButtonClickStyle}">
+                                <Image x:Name="ImgBackward" Source="Resources/Icons/backward-solid.png"
+                                       RenderOptions.BitmapScalingMode="Fant" />
+                            </Button>
+                            <Button BorderThickness="0" Width="48" Height="48" x:Name="BtnPausePlay"
+                                    Click="btnPausePlay_Click"
+                                    Margin="0 25 10 0" Style="{StaticResource ButtonClickStyle}"
+                                    Background="Transparent">
+                                <Image x:Name="ImgPausePlay" Source="Resources/Icons/play-solid.png"
+                                       RenderOptions.BitmapScalingMode="Fant" />
+                                <!-- NOT DONE YET -->
+                            </Button>
+                            <Button Width="48" Height="48" x:Name="BtnForward" Click="btnForward_OnClick"
+                                    BorderThickness="0"
+                                    Margin="0 25 5 0" Style="{StaticResource ButtonClickStyle}"
+                                    Background="Transparent">
+                                <Image x:Name="ImgForward" Source="Resources/Icons/forward-solid.png"
+                                       RenderOptions.BitmapScalingMode="Fant" />
+                            </Button>
+                            <Slider x:Name="VolumeSlider" Width="100"
+                                    Value="{Binding ElementName=MediaElement, Path=Volume}" Maximum="1" Minimum="0"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical"
+                                    Height="60" MaxWidth="30" Margin="15 0 0 -10" TickFrequency="0.1" />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                
-                <!--
+
+                    <!--
                 This is the slider that shows the progress of the song. The label shows the current time of the song.
                 -->
-                <Slider x:Name="MediaSlider" Value="0" Maximum="100" Margin="0 0 0 0"
-                        ValueChanged="MediaSlider_ValueChanged" />
-                <Label Margin="0" Name="SongCounter" Content="00:00" Foreground="LightSlateGray"
-                       HorizontalAlignment="Center">
-                </Label>
+                    <Slider x:Name="MediaSlider" Value="0" Maximum="100" Margin="0 0 0 0"
+                            ValueChanged="MediaSlider_ValueChanged" IsEnabled="False" />
+                    <Label Margin="0" Name="SongCounter" Content="00:00" Foreground="LightSlateGray"
+                           HorizontalAlignment="Center">
+                    </Label>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
-
-        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
-            <DockPanel>
-                <!--#TODO FIX SCROLL LISTVIEW-->
-                <ListView VerticalAlignment="Top" Name="MPlaylist" Margin="10,0,25,0"
+            <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+                <ListView Grid.Row="0" Name="MPlaylist" VerticalAlignment="Center" HorizontalAlignment="Left"
                           MouseDoubleClick="btnPausePlay_Click"
-                          ItemsSource="{Binding Songs}"
-                          ScrollViewer.CanContentScroll="False"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollBarVisibility="Visible"
                           SelectionChanged="mPlaylist_SelectionChanged"
                           ItemTemplate="{StaticResource SongDataTemplate}"
-                          MinHeight="300" MaxHeight="300">
-                    <ListView.Template>
-                        <ControlTemplate>
-                            <Border CornerRadius="5" BorderThickness="5" BorderBrush="LightSlateGray">
-                                <ItemsPresenter>
-                                </ItemsPresenter>
-                            </Border>
-                        </ControlTemplate>
-                    </ListView.Template>
+                          Width="Auto" Height="300" VerticalContentAlignment="Stretch" Margin="0 0  0 200">
+                    <!-- Other ListView properties -->
+                    <Border CornerRadius="5" BorderThickness="5" BorderBrush="LightSlateGray">
+                        <ItemsPresenter>
+                        </ItemsPresenter>
+                    </Border>
                 </ListView>
 
-            </DockPanel>
+
+            </Grid>
+
 
         </Grid>
-
-
-        
-        
-        
-    </Grid>
-
-
+    </Border>
 </Window>

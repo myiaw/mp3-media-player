@@ -13,46 +13,7 @@
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
 
-            <!-- Template for each list view item. -->
-            <DataTemplate x:Key="SongDataTemplate" DataType="mediaPlayer1:Song">
-                <StackPanel x:Name="itemPanel" Orientation="Horizontal" Height="64">
-                    <!-- Image Property -->
-                    <Ellipse Height="48" Width="48" VerticalAlignment="Center">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding Image}" />
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <!-- Image Property -->
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,0,12,0">
-                            <TextBlock Text="{Binding Title}" FontWeight="Bold" />
-                            <TextBlock Text="{Binding Artist}" />
-                        </StackPanel>
-                        <Rectangle VerticalAlignment="Stretch" Width="1" Margin="5" Stroke="Black" />
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center"
-                                    HorizontalAlignment="Right"
-                                    Margin="12,0,12,0">
-                            <TextBlock Text="{Binding Genre}" HorizontalAlignment="Center" Margin="0,0,0,12" />
-                            <TextBlock Text="{Binding ReleaseYear}" HorizontalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center"
-                                    HorizontalAlignment="Right"
-                                    Margin="12,0,0,0">
-                            <TextBlock Text="{Binding Path}" TextWrapping="Wrap" HorizontalAlignment="Right" />
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-                <!-- Change item background color in ListView when that item is being played. -->
-                <DataTemplate.Triggers>
-                    <DataTrigger Binding="{Binding IsSongPlaying}" Value="True">
-                        <Setter TargetName="itemPanel" Property="Background" Value="LightGreen" />
-                    </DataTrigger>
-                </DataTemplate.Triggers>
-            </DataTemplate>
-            <!-- Change item background color in ListView when that item is being played. -->
 
-
-            <!-- Template for each list view item. -->
         </ResourceDictionary>
 
 

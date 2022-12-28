@@ -15,6 +15,7 @@ using Blazorise;
 using MediaPlayer.SettingsWindow;
 using Microsoft.Win32;
 using static MediaPlayer.Data;
+using MouseButton = System.Windows.Input.MouseButton;
 
 
 namespace MediaPlayer{
@@ -25,6 +26,7 @@ namespace MediaPlayer{
 
         public MainWindow() {
             InitializeComponent();
+            MPlaylist.Items.Clear();
             MPlaylist.ItemsSource = Songs;
             _timer = new DispatcherTimer {
                 Interval = TimeSpan.FromSeconds(1)
@@ -69,6 +71,12 @@ namespace MediaPlayer{
                 }
 
                 Songs.Remove(song);
+
+                if (Songs.Count == 0) {
+                    CurrentTitle.Content = "--";
+                    EditButton.IsEnabled = false;
+                }
+
                 SelectedSong = null;
                 ShownImage.ImageSource = null;
             }
@@ -102,6 +110,7 @@ namespace MediaPlayer{
                 SelectedSong.IsSongPlaying = false;
                 ImgPausePlay.Source = new BitmapImage(new Uri("Resources/Icons/play-solid.png", UriKind.Relative));
             }
+
 
             var editWin = new EditSong {
                 Title = SelectedSong?.Title,
@@ -176,6 +185,8 @@ namespace MediaPlayer{
                 return;
             }
 
+            MediaSlider.IsEnabled = true;
+
             if (SavedSong != SelectedSong) {
                 if (SelectedSong.Path != null) MediaElement.Source = new Uri(SelectedSong.Path);
             }
@@ -220,11 +231,11 @@ namespace MediaPlayer{
         }
 
 
-        /// When the media element's media has ended, stop the media element
+        /// When the song ends, if shuffle mode is on, play a random song. If shuffle mode is off, stop the song
         private void mediaElement_MediaEnded(object sender, RoutedEventArgs e) {
             btnPausePlay_Click(sender, e);
             if (_shuffleMode) {
-                int rand = new Random().Next(0, Songs.Count);
+                var rand = new Random().Next(0, Songs.Count);
                 if (rand == Songs.IndexOf(SelectedSong)) {
                     rand = new Random().Next(0, Songs.Count);
                 }
@@ -308,8 +319,13 @@ namespace MediaPlayer{
 
             var serializer = new XmlSerializer(typeof(ObservableCollection<SerializableSong>));
 
-            using (var writer = new StreamWriter(dlg.FileName)) {
-                serializer.Serialize(writer, serializableSongs);
+            using var writer = new StreamWriter(dlg.FileName);
+            serializer.Serialize(writer, serializableSongs);
+        }
+
+        private void Menu_OnPreviewMouseDown(object sender, MouseButtonEventArgs e) {
+            if (e.ChangedButton == MouseButton.Left) {
+                DragMove();
             }
         }
     }

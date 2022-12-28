@@ -8,6 +8,15 @@
         Title="Title" Height="330" Width="400" WindowStyle="None"
         ui:WindowHelper.UseModernWindowStyle="True"
         Background="#181735">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard Duration="00:00:1" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimation Duration="00:00:1" From="0.5" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
