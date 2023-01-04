@@ -6,17 +6,24 @@ using System.Media;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml.Serialization;
-using Blazorise;
 using MediaPlayer.SettingsWindow;
-using Microsoft.Win32;
+using Ookii.Dialogs.Wpf;
 using static MediaPlayer.Data;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 using MouseButton = System.Windows.Input.MouseButton;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
+    //TODO: READING MP3 TAGS AND CHANGING THEM IN THE APP.
+    //TODO: ADD SONG TO SYNC FOLDER IF IT ISN'T ALREADY THERE FEATURE.
 
 namespace MediaPlayer{
     /* The MainWindow class is the main window of the application */
@@ -32,6 +39,11 @@ namespace MediaPlayer{
                 Interval = TimeSpan.FromSeconds(1)
             };
             _timer.Tick += Timer_Tick;
+
+            // Load the settings
+            if (Properties.Settings.Default.SyncFolder != null) {
+                LoadSyncFolder();
+            }
         }
 
 
@@ -60,7 +72,7 @@ namespace MediaPlayer{
             settingsWin.Show();
         }
 
-        /// If the selected item is a song, remove it from the list of songs
+        /// If the selected item is a song, remove i tfrom the list of songs
         private void MenuItemRemove_Click(object sender, EventArgs e) {
             if (MPlaylist.SelectedItem is Song song) {
                 if (SelectedSong is { IsSongPlaying: true }) {
@@ -203,7 +215,7 @@ namespace MediaPlayer{
                 SelectedSong.IsSongPlaying = true;
                 if (SelectedSong.Title is { Length: >= 9 }) {
                     CurrentTitle.Content =
-                        SelectedSong.Title.Remove(8, SelectedSong.Title.Length - 8).Insert(8, "...");
+                        SelectedSong.Title.Remove(8, SelectedSong.Title.Length - 8).Insert(8, "-");
                 }
                 else {
                     CurrentTitle.Content = SelectedSong.Title;
@@ -236,7 +248,7 @@ namespace MediaPlayer{
             btnPausePlay_Click(sender, e);
             if (_shuffleMode) {
                 var rand = new Random().Next(0, Songs.Count);
-                if (rand == Songs.IndexOf(SelectedSong)) {
+                if (rand == Songs.IndexOf(SelectedSong!)) {
                     rand = new Random().Next(0, Songs.Count);
                 }
 
@@ -324,8 +336,43 @@ namespace MediaPlayer{
         }
 
         private void Menu_OnPreviewMouseDown(object sender, MouseButtonEventArgs e) {
-            if (e.ChangedButton == MouseButton.Left) {
-                DragMove();
+            try {
+                if (e.ChangedButton == MouseButton.Left) {
+                    DragMove();
+                }
+            }
+            catch (InvalidOperationException) {
+                // ignored
+            }
+        }
+
+        private void MenuItemAddImage_OnClick(object sender, RoutedEventArgs e) {
+            Song.ImageChange();
+        }
+
+
+        private void MenuItemAddFolder_Click(object sender, RoutedEventArgs e) {
+            var dlg = (VistaFolderBrowserDialog)Activator.CreateInstance(typeof(VistaFolderBrowserDialog))!;
+            var result = dlg.ShowDialog();
+            if (result != true) return;
+            var selectedFolder = dlg.SelectedPath;
+            var dir = new DirectoryInfo(selectedFolder);
+            foreach (var file in dir.GetFiles("*.mp3")) {
+                Songs.Add(new Song("AddedTitle", "Artist", "Genre", 2000,
+                    Song.LoadImage("D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
+                    file.FullName, false));
+            }
+        }
+
+        private void LoadSyncFolder() {
+            if (Properties.Settings.Default.SyncFolder == null) return;
+            var selectedFolder = Properties.Settings.Default.SyncFolder;
+            var dir = new DirectoryInfo(selectedFolder);
+            Songs.Clear();
+            foreach (var file in dir.GetFiles("*.mp3")) {
+                Songs.Add(new Song("AddedTitle", "Artist", "Genre", 2000,
+                    Song.LoadImage("D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
+                    file.FullName, false));
             }
         }
     }

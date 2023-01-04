@@ -34,15 +34,8 @@
 
 
             <!--#TODO GRID SPLITTERS?-->
-
+            <!--#TODO CHANGING AND SAVING LAYOUTS === ALSO WITH INTERVALS (AUTO SAVE)-->
             <Grid Background="#0F0F2D" Grid.ColumnSpan="2">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-
-                </Grid.ColumnDefinitions>
-
-
                 <!--
             This is the menu bar for the application. It is a menu bar that has three options: File, List, and Tools.
             -->
@@ -57,6 +50,7 @@
                     </MenuItem>
 
                     <MenuItem Header="List">
+                        <MenuItem Click="MenuItemAddFolder_Click" Header="Add Folder"></MenuItem>
                         <MenuItem Click="MenuItemAdd_Click" Header="Add"></MenuItem>
                         <MenuItem Click="MenuItemRemove_Click" Header="Remove"></MenuItem>
                         <MenuItem Click="MenuItemEdit_Click" x:Name="EditButton" Header="Edit" IsEnabled="False"></MenuItem>
@@ -181,6 +175,16 @@
                         <ItemsPresenter>
                         </ItemsPresenter>
                     </Border>
+
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Add Folder" Click="MenuItemAddFolder_Click"></MenuItem>
+                            <MenuItem Header="Add" Click="MenuItemAdd_Click" />
+                            <MenuItem Header="Edit" Click="MenuItemEdit_Click" />
+                            <MenuItem Header="Remove" Click="MenuItemRemove_Click" />
+                            <MenuItem Header="Add Image" Click="MenuItemAddImage_OnClick"></MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                 </ListView>
 
 

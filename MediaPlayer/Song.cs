@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
+using Microsoft.Win32;
 
 namespace MediaPlayer{
     [XmlRoot("Song")]
@@ -112,6 +113,25 @@ namespace MediaPlayer{
             image.EndInit();
 
             return image;
+        }
+
+        public static void ImageChange() {
+            var dlg = new OpenFileDialog {
+                Multiselect = false,
+                FilterIndex = 1,
+                Filter =
+                    "All Images Files (*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif)|*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif" +
+                    "|PNG Portable Network Graphics (*.png)|*.png" +
+                    "|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
+                    "|BMP Windows Bitmap (*.bmp)|*.bmp" +
+                    "|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
+                    "|GIF Graphics Interchange Format (*.gif)|*.gif"
+            };
+            var result = dlg.ShowDialog();
+            if (result != true) return;
+            if (Data.SelectedSong is { } song) {
+                song.Image = LoadImage(dlg.FileName);
+            }
         }
     }
 }

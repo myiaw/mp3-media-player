@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Input;
+using Ookii.Dialogs.Wpf;
 
 namespace MediaPlayer.SettingsWindow;
 
@@ -14,6 +16,9 @@ public partial class Settings{
         MGenres.ItemsSource = Genres;
         GetSettings();
         PreviewKeyDown += HandleEsc;
+        if (Properties.Settings.Default.SyncFolder is not null) {
+            SyncFolderTextBox.Text = Properties.Settings.Default.SyncFolder;
+        }
     }
 
     /// If the key pressed is the escape key, close the window
@@ -88,5 +93,16 @@ public partial class Settings{
         Value = str;
         var editWin = new EditGenre();
         editWin.Show();
+    }
+
+    private void SelectSyncFolder_Click(object sender, RoutedEventArgs e) {
+        var dlg = (VistaFolderBrowserDialog)Activator.CreateInstance(typeof(VistaFolderBrowserDialog))!;
+        var result = dlg.ShowDialog();
+        if (result != true) return;
+        Properties.Settings.Default.SyncFolder = dlg.SelectedPath;
+        Properties.Settings.Default.Save();
+        MessageBox.Show("Sync folder set to: " + dlg.SelectedPath +
+                        "\n\nThis folder will be used to sync your music library on start, changes will take effect after restart.",
+            "Sync folder set", MessageBoxButton.OK);
     }
 }

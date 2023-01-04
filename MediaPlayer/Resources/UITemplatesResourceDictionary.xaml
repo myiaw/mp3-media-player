@@ -41,6 +41,53 @@
     <!-- Change item background color in ListView when that item is being played. -->
 
 
-    <!-- Template for each list view item. -->
+    <!-- Button Style - BLACK -->
+
+    <Style x:Key="ButtonStyleBlack" TargetType="Button">
+        <Setter Property="TextElement.FontFamily"
+                Value="MediaPlayer/Resources/Fonts/#Dosis.ttf" />
+        <Setter Property="Background" Value="#39385D" />
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25" CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3A3952"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <!-- Button Style - RED -->
+
+    <Style x:Key="ButtonStyleRed" TargetType="Button">
+        <Setter Property="TextElement.FontFamily"
+                Value="MediaPlayer/Resources/Fonts/#Dosis.ttf" />
+        <Setter Property="Background" Value="#FE6584" />
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25" CornerRadius="12"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FF4C70"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

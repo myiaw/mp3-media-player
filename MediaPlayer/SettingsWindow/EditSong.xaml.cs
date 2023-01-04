@@ -59,23 +59,7 @@ namespace MediaPlayer.SettingsWindow{
 
         /// It opens a file dialog, and if the user selects a file, it loads the image into the selected song
         private void Image_Change(object sender, RoutedEventArgs e) {
-            var dlg = new OpenFileDialog {
-                Multiselect = false,
-                FilterIndex = 1,
-                Filter =
-                    "All Images Files (*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif)|*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif" +
-                    "|PNG Portable Network Graphics (*.png)|*.png" +
-                    "|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
-                    "|BMP Windows Bitmap (*.bmp)|*.bmp" +
-                    "|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
-                    "|GIF Graphics Interchange Format (*.gif)|*.gif"
-            };
-            var result = dlg.ShowDialog();
-            if (result != true) return;
-            if (Data.SelectedSong is { } song) {
-                song.Image = Song.LoadImage(dlg.FileName);
-                
-            }
+            Song.ImageChange();
         }
     }
 }

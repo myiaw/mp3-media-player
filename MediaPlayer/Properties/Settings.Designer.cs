@@ -33,5 +33,16 @@ namespace MediaPlayer.Properties {
                 this["Genres"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.String SyncFolder {
+            get {
+                return ((global::System.String)(this["SyncFolder"]));
+            }
+            set {
+                this["SyncFolder"] = value;
+            }
+        }
     }
 }
