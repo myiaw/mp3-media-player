@@ -5,18 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="Title" Height="330" Width="400" WindowStyle="None"
+        Title="Title" Height="330" Width="400"
         ui:WindowHelper.UseModernWindowStyle="True"
         Background="#181735">
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Loaded">
-            <BeginStoryboard>
-                <Storyboard Duration="00:00:1" Storyboard.TargetProperty="Opacity">
-                    <DoubleAnimation Duration="00:00:1" From="0.5" To="1" />
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </Window.Triggers>
+    <Window.Style>
+        <StaticResource ResourceKey="LoadAnimationStyle"></StaticResource>
+    </Window.Style>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -67,28 +61,8 @@
                HorizontalAlignment="Left" />
 
         <Button Grid.Row="5" x:Name="SetImage" Content="SET IMAGE" FontWeight="Medium" FontSize="14" Foreground="White"
-                Margin="140 0 30 5" Click="Image_Change">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="TextElement.FontFamily" Value="MediaPlayer/Resources/Fonts/#Dosis.ttf" />
-                    <Setter Property="Background" Value="#FE6584" />
-                    <Setter Property="Cursor" Value="Hand"></Setter>
-
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF4C70"></Setter>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Width="100" Height="25" CornerRadius="12" Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
+                Margin="140 0 30 5" Click="Image_Change" Style="{StaticResource ButtonStyleRed}">
+            
         </Button>
     </Grid>
 </Window>

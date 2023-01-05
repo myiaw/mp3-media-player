@@ -3,18 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ResizeMode="NoResize"
-        Title="Settings" Height="450" Width="800" WindowStyle="None"
+        Title="Settings" Height="450" Width="800"        
         ui:WindowHelper.UseModernWindowStyle="True"
         Background="#181735">
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Loaded">
-            <BeginStoryboard>
-                <Storyboard Duration="00:00:1" Storyboard.TargetProperty="Opacity">
-                    <DoubleAnimation Duration="00:00:1" From="0.5" To="1" />
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </Window.Triggers>
+    <Window.Style>
+        <StaticResource ResourceKey="LoadAnimationStyle"></StaticResource>
+    </Window.Style>
     <Grid>
         <Grid>
             <TabControl>
@@ -64,30 +58,25 @@
                                     Click="addGenre_btn_Click" Content="Add" FontWeight="Medium" FontSize="14"
                                     Foreground="White" Style="{StaticResource ButtonStyleBlack}">
                             </Button>
-
-
                             <TextBox x:Name="GenreBox" Width="300" Height="25" HorizontalAlignment="Right"
                                      Margin="120 0 0 0">
                             </TextBox>
                         </StackPanel>
-
                         <Grid>
-
-
+                            <ListView x:Name="MGenres" Margin="20 10 20 0"
+                                      MouseDoubleClick="mGenres_MouseDoubleClick"
+                                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                      Width="Auto" Height="250" VerticalContentAlignment="Stretch">
+                                <ListView.Template>
+                                    <ControlTemplate>
+                                        <Border CornerRadius="5" BorderThickness="5" BorderBrush="LightSlateGray">
+                                            <ItemsPresenter>
+                                            </ItemsPresenter>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ListView.Template>
+                            </ListView>
                         </Grid>
-
-                        <ListView x:Name="MGenres" Height="200" Margin="20 10 20 0"
-                                  MouseDoubleClick="mGenres_MouseDoubleClick">
-                            <ListView.Template>
-                                <ControlTemplate>
-                                    <Border CornerRadius="5" BorderThickness="5" BorderBrush="LightSlateGray">
-                                        <ItemsPresenter>
-                                        </ItemsPresenter>
-                                    </Border>
-                                </ControlTemplate>
-                            </ListView.Template>
-
-                        </ListView>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Saved">

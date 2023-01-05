@@ -26,7 +26,7 @@
 
     <!-- CHANGE COLOR ANIMATION -->
 
-    <!-- Button 1 -->
+    <!-- Button -->
     <Storyboard x:Key="ButtonClickAnimation">
         <ColorAnimation
             Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
@@ -40,6 +40,20 @@
         <Style.Triggers>
             <EventTrigger RoutedEvent="Button.Click">
                 <BeginStoryboard Storyboard="{StaticResource ButtonClickAnimation}" />
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <!-- Window animation -->
+    <Style x:Key="LoadAnimationStyle" TargetType="Window">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard Duration="00:00:1" Storyboard.TargetProperty="Opacity">
+                        <DoubleAnimation Duration="00:00:1" From="0.5" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
             </EventTrigger>
         </Style.Triggers>
     </Style>

@@ -6,21 +6,11 @@
     ui:WindowHelper.UseModernWindowStyle="False"
     Height="625" Width="900" WindowStyle="None"
     ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/UITemplatesResourceDictionary.xaml" />
-                <ResourceDictionary Source="Resources/AnimationResourceDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
-
     <Border Background="#181735" CornerRadius="30" MouseDown="Menu_OnPreviewMouseDown" ClipToBounds="False">
 
 
         <!-- Definitions -->
-        <Grid Name="grid_root">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition></RowDefinition>

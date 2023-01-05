@@ -40,7 +40,6 @@ namespace MediaPlayer{
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
-            
             if (Properties.Settings.Default.ColumnWidth_1 is not null && Properties.Settings.Default.TimerValue != 0) {
                 ColumnDefinitionOne.Width = new GridLength((double)Properties.Settings.Default.ColumnWidth_1);
             }
@@ -48,6 +47,7 @@ namespace MediaPlayer{
             if (Properties.Settings.Default.ColumnWidth_2 is not null && Properties.Settings.Default.TimerValue != 0) {
                 ColumnDefinitionTwo.Width = new GridLength((double)Properties.Settings.Default.ColumnWidth_2);
             }
+
             _timer = new DispatcherTimer {
                 Interval = TimeSpan.FromSeconds(1)
             };
@@ -95,9 +95,30 @@ namespace MediaPlayer{
             var result = dlg.ShowDialog();
             if (result != true) return;
             foreach (string? file in dlg.FileNames) {
-                Songs.Add(new Song("Title", "Artist", "Genre", 2000,
-                    Song.LoadImage("D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
-                    file, false));
+                var mediaFile = TagLib.File.Create(file);
+                // var song = new Song {
+                //     Title = mediaFile.Tag.Title,
+                //     Artist = mediaFile.Tag.FirstPerformer,
+                //     Image = Song.LoadImage("D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
+                //     ReleaseYear = (int)mediaFile.Tag.Year,
+                //     Genre = mediaFile.Tag.FirstGenre,
+                //     Path = file,
+                //     IsSongPlaying = false
+                // };
+
+                var song = new Song {
+                    Title = mediaFile.Tag.Title ?? "Title",
+                    Artist = (mediaFile.Tag.Performers ?? new[] { "Artist" }).ToString(),
+                    Image = Song.LoadImage(
+                        "D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
+                    ReleaseYear = mediaFile.Tag.Year == 0 ? 2000 : (int)mediaFile.Tag.Year,
+                    Genre = mediaFile.Tag.FirstGenre ?? "Genre",
+                    Path = file,
+                    IsSongPlaying = false
+                };
+
+
+                Songs.Add(song);
             }
         }
 
@@ -405,10 +426,21 @@ namespace MediaPlayer{
             if (result != true) return;
             var selectedFolder = dlg.SelectedPath;
             var dir = new DirectoryInfo(selectedFolder);
+
+
             foreach (var file in dir.GetFiles("*.mp3")) {
-                Songs.Add(new Song("AddedTitle", "Artist", "Genre", 2000,
-                    Song.LoadImage("D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
-                    file.FullName, false));
+                var mediaFile = TagLib.File.Create(file.FullName);
+                var song = new Song {
+                    Title = mediaFile.Tag.Title ?? "Title",
+                    Artist = mediaFile.Tag.FirstPerformer ?? "Artist",
+                    Image = Song.LoadImage(
+                        "D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
+                    ReleaseYear = mediaFile.Tag.Year == 0 ? 2000 : (int)mediaFile.Tag.Year,
+                    Genre = mediaFile.Tag.FirstGenre ?? "Genre",
+                    Path = file.FullName,
+                    IsSongPlaying = false
+                };
+                Songs.Add(song);
             }
         }
 
@@ -419,9 +451,18 @@ namespace MediaPlayer{
             var dir = new DirectoryInfo(selectedFolder);
             Songs.Clear();
             foreach (var file in dir.GetFiles("*.mp3")) {
-                Songs.Add(new Song("AddedTitle", "Artist", "Genre", 2000,
-                    Song.LoadImage("D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
-                    file.FullName, false));
+                var mediaFile = TagLib.File.Create(file.FullName);
+                var song = new Song {
+                    Title = mediaFile.Tag.Title ?? "Title",
+                    Artist = mediaFile.Tag.FirstPerformer ?? "Artist",
+                    Image = Song.LoadImage(
+                        "D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
+                    ReleaseYear = mediaFile.Tag.Year == 0 ? 2000 : (int)mediaFile.Tag.Year,
+                    Genre = mediaFile.Tag.FirstGenre ?? "Genre",
+                    Path = file.FullName,
+                    IsSongPlaying = false
+                };
+                Songs.Add(song);
             }
         }
 

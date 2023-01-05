@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Win32;
+using TagLib;
 
 namespace MediaPlayer.SettingsWindow{
     /// <summary>
