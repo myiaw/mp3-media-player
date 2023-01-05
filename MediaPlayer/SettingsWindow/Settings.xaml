@@ -31,7 +31,26 @@
                                     Foreground="White" Style="{StaticResource ButtonStyleBlack}">
                             </Button>
                         </StackPanel>
-                        <TextBlock></TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock FontFamily="MediaPlayer/Resources/Fonts/Dosis.ttf" FontWeight="Medium"
+                                       Text="Auto-save : "
+                                       Foreground="DarkGray" VerticalAlignment="Center" FontSize="14" Margin="10 5 0 0">
+                            </TextBlock>
+                            <TextBox Name="TimerValueBox" Height="25" Width="75" Margin="39 0 0 0"></TextBox>
+                            <Button Margin="10 5 0  0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    Content="Set time" FontWeight="Medium" FontSize="14"
+                                    Foreground="White" Style="{StaticResource ButtonStyleBlack}"
+                                    Click="TimeSetButton_onClick">
+                            </Button>
+                            <Button Margin="10 5 0  0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    Content="Disable" FontWeight="Medium" FontSize="14"
+                                    Foreground="White" Style="{StaticResource ButtonStyleRed}"
+                                    Click="TimeDisableButton_onClick">
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Margin="133 0 0 0 " Name="setTimeLabel" Content="" Height="25" Width="200"> </Label>
+                        </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Genre">

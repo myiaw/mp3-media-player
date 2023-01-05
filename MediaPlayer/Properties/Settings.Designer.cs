@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Windows;
+
 namespace MediaPlayer.Properties {
     
     
@@ -44,5 +46,54 @@ namespace MediaPlayer.Properties {
                 this["SyncFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Int32 TimerValue {
+            get {
+                return ((global::System.Int32)(this["TimerValue"]));
+            }
+            set {
+                this["TimerValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Double? ColumnWidth_1 {
+            get {
+                return ((global::System.Double?)(this["ColumnWidth_1"]));
+            }
+            set {
+                this["ColumnWidth_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Double? ColumnWidth_2 {
+            get {
+                return ((global::System.Double?)(this["ColumnWidth_2"]));
+            }
+            set {
+                this["ColumnWidth_2"] = value;
+            }
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+       
+        
+       
+        
+      
+        
+        
     }
 }

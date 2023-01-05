@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -22,30 +25,63 @@ using MouseButton = System.Windows.Input.MouseButton;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
-    //TODO: READING MP3 TAGS AND CHANGING THEM IN THE APP.
-    //TODO: ADD SONG TO SYNC FOLDER IF IT ISN'T ALREADY THERE FEATURE.
+//TODO: READING MP3 TAGS AND CHANGING THEM IN THE APP.
 
 namespace MediaPlayer{
     /* The MainWindow class is the main window of the application */
     public partial class MainWindow{
-        private readonly DispatcherTimer _timer;
+        private DispatcherTimer _timer;
         private bool _shuffleMode = false;
+        DispatcherTimer dispatcherTimer = new();
 
         public MainWindow() {
             InitializeComponent();
-            MPlaylist.Items.Clear();
-            MPlaylist.ItemsSource = Songs;
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+            
+            if (Properties.Settings.Default.ColumnWidth_1 is not null && Properties.Settings.Default.TimerValue != 0) {
+                ColumnDefinitionOne.Width = new GridLength((double)Properties.Settings.Default.ColumnWidth_1);
+            }
+
+            if (Properties.Settings.Default.ColumnWidth_2 is not null && Properties.Settings.Default.TimerValue != 0) {
+                ColumnDefinitionTwo.Width = new GridLength((double)Properties.Settings.Default.ColumnWidth_2);
+            }
             _timer = new DispatcherTimer {
                 Interval = TimeSpan.FromSeconds(1)
             };
             _timer.Tick += Timer_Tick;
 
-            // Load the settings
+
+            MPlaylist.Items.Clear();
+            MPlaylist.ItemsSource = Songs;
             if (Properties.Settings.Default.SyncFolder != null) {
                 LoadSyncFolder();
             }
+
+            if (Properties.Settings.Default.TimerValue <= 0) return;
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, Properties.Settings.Default.TimerValue);
+            dispatcherTimer.Start();
         }
 
+        private void DispatcherTimer_Tick(object? sender, EventArgs e) {
+            if (Properties.Settings.Default.TimerValue == 0) {
+                dispatcherTimer.Stop();
+            }
+            else {
+                Trace.WriteLine("Column 1 width: " + ColumnDefinitionOne.ActualWidth);
+                Trace.WriteLine("Column 2 width: " + ColumnDefinitionTwo.ActualWidth);
+
+                Properties.Settings.Default.ColumnWidth_1 = ColumnDefinitionOne.ActualWidth;
+                Properties.Settings.Default.ColumnWidth_2 = ColumnDefinitionTwo.ActualWidth;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        void dispatcherTimer_Tick(object? sender, EventArgs e) {
+        }
 
         /// When the user clicks the Exit menu item, the application shuts down
         private void MenuItemExit_Click(object sender, EventArgs e) => Application.Current.Shutdown();
@@ -70,9 +106,18 @@ namespace MediaPlayer{
         private void MenuItemSettings_Click(object sender, EventArgs e) {
             var settingsWin = new Settings();
             settingsWin.Show();
+            settingsWin.Closing += SettingsWin_Closing;
         }
 
-        /// If the selected item is a song, remove i tfrom the list of songs
+        private void SettingsWin_Closing(object? sender, CancelEventArgs e) {
+            if (Properties.Settings.Default.TimerValue <= 0) return;
+            dispatcherTimer.Stop();
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, Properties.Settings.Default.TimerValue);
+            dispatcherTimer.Start();
+        }
+
+        /// If the selected item is a song, remove it from the list of songs
         private void MenuItemRemove_Click(object sender, EventArgs e) {
             if (MPlaylist.SelectedItem is Song song) {
                 if (SelectedSong is { IsSongPlaying: true }) {
@@ -98,7 +143,8 @@ namespace MediaPlayer{
         }
 
 
-        /// When the user selects a playlist, the edit button is enabled
+        /// If the selected item is a song that is playing, then change the image to a pause button. Otherwise, change the
+        /// image to a play button
         private void mPlaylist_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (MPlaylist.SelectedItem as Song is { IsSongPlaying: true }) {
                 ImgPausePlay.Source =
@@ -351,6 +397,8 @@ namespace MediaPlayer{
         }
 
 
+        /// It opens a dialog box that allows the user to select a folder, then it adds all the mp3 files in that folder to
+        /// the list of songs
         private void MenuItemAddFolder_Click(object sender, RoutedEventArgs e) {
             var dlg = (VistaFolderBrowserDialog)Activator.CreateInstance(typeof(VistaFolderBrowserDialog))!;
             var result = dlg.ShowDialog();
@@ -364,6 +412,7 @@ namespace MediaPlayer{
             }
         }
 
+        /// It loads the songs from the folder that the user has selected
         private void LoadSyncFolder() {
             if (Properties.Settings.Default.SyncFolder == null) return;
             var selectedFolder = Properties.Settings.Default.SyncFolder;
@@ -374,6 +423,16 @@ namespace MediaPlayer{
                     Song.LoadImage("D:\\Projects\\College\\C#\\MediaPlayer\\MediaPlayer\\Resources\\Media\\images.png"),
                     file.FullName, false));
             }
+        }
+
+        private void MenuItemDefaultLayout_Click(object sender, RoutedEventArgs e) {
+            Grid.SetColumn(StackPanelRight, 0);
+            Grid.SetColumn(gridList, 1);
+        }
+
+        private void MenuItemAlternativeLayout_Click(object sender, RoutedEventArgs e) {
+            Grid.SetColumn(StackPanelRight, 1);
+            Grid.SetColumn(gridList, 0);
         }
     }
 }

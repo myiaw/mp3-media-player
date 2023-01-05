@@ -20,22 +20,21 @@
 
 
         <!-- Definitions -->
-        <Grid>
+        <Grid Name="grid_root">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
 
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" Name="ColumnDefinitionOne" />
+                <ColumnDefinition Width="*" Name="ColumnDefinitionTwo" />
             </Grid.ColumnDefinitions>
 
 
-            <!--#TODO GRID SPLITTERS?-->
-            <!--#TODO CHANGING AND SAVING LAYOUTS === ALSO WITH INTERVALS (AUTO SAVE)-->
-            <Grid Background="#0F0F2D" Grid.ColumnSpan="2">
+            <Grid Background="#0F0F2D" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
                 <!--
             This is the menu bar for the application. It is a menu bar that has three options: File, List, and Tools.
             -->
@@ -58,6 +57,10 @@
                     <MenuItem Header="Tools">
                         <MenuItem Click="MenuItemSettings_Click" Header="Settings"></MenuItem>
                     </MenuItem>
+                    <MenuItem Header="Layouts">
+                        <MenuItem Click="MenuItemDefaultLayout_Click" Header="Default"></MenuItem>
+                        <MenuItem Click="MenuItemAlternativeLayout_Click" Header="Alternative"></MenuItem>
+                    </MenuItem>
                 </Menu>
 
             </Grid>
@@ -65,7 +68,7 @@
             <!--
         This is the code for the top left corner of the application. It is the logo and the title of the application.
         -->
-            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="60">
+            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="60" Name="StackPanelRight">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin=" 0 0 0 20">
                         <Image Width="50" Height="50" Source="Resources/Images/shuttle.png"
@@ -161,8 +164,8 @@
                 </StackPanel>
 
             </StackPanel>
-
-            <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+            <GridSplitter Grid.Row="1" Grid.Column="0" Width="5" Name="Splitter"></GridSplitter>
+            <Grid Name="gridList" Grid.Row="1" Grid.Column="1" Margin="10">
                 <ListView Grid.Row="0" Name="MPlaylist" VerticalAlignment="Center" HorizontalAlignment="Left"
                           MouseDoubleClick="btnPausePlay_Click"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
